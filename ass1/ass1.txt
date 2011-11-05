@@ -3,14 +3,31 @@ Arash Rouhani
 rarash@student.chalmers.se
 901117-1213
 
+(First resubmission)
+
 + Question 1
 
 1/256
+
+Motivation:
+    A byte can in a random generation be any of 256 values.
+    The first 7 seven bytes are "free", no constraint is put on them.
+    For the last byte to "match" it can only be 0.
+    That is: 1 matching value out of 256 possible.
 
 + Question 2
 
 sum(i=1..8 inclusive)
   (1/256^i)
+
+Motivation:
+    Padding i has i constrained bytes, and each such byte is constrained
+    to a single value.
+    That is: 1 matching value out of 256 possible, i times.
+     (multiplication principle)
+    And of course, for any padding type to occour we sum the probablities
+    for each padding type.
+
 
 + Question 3
 
@@ -31,10 +48,18 @@ Ok, so
 
 Then
   D(C) + R_i + C' = P + C' + R_i + C'
-                  = P + R_i + (C' + C')
-                  = P + R_i
+                  = P + R_i + (C' + C') (associativity)
+                  = P + R_i             (property of "self-elimination")
 
 Done.
+
+Note:
+    Even though serious attempt to find a fancy mathematical term
+    for the property (x `op` x = identity), i didn't find any.
+    One could perhaps say that for all x, x is the inverse of x under
+    xor, but it sounds silly.
+    
+    So I instead used the descriptive term "self-eliminating".
 
 + Question 5
 
@@ -75,13 +100,59 @@ delay when padding is correct.
 
 b_7 = 1 + i
 
-It comes with the exact same reasoning as with Q5,
-only we now state
-  padding correct => P + S_i = <?,?,?,?,?,?,1,1>
+Motivation:
+    That is true when padding is correct. That was our assumption.
+    
+    we sent (S_i + C') || C =>
+    padding block (=PB) is (D(C) + (S_i + C')) (as of CBC) =>
+    
+    PB = (D(E(P + C')) + (S_i + C')) (as of CBC and more)
+         (P + C') + (S_i + C')) (obviously)
+         (P + S_i) (see Q. 4)
+    
+    padding is correct AND PB[8] = 1 => P + S_i = <?,?,?,?,?,?,1,1>
+    
+    (PB[8] is byte 8 of PB)
+    
+    Ok, how do we know PB[8] = 1?, well 
+    
+    PB[8] = P[8] + S_i[8]     (from above)
+          = b8   + (b8 + 1)   (from our definitions)
+          = 1                 (associativty then self-elimination)
+    
+    Ok, we now know (given all our reasonable assumptions)
+    
+    PB = P + S_i = <?,?,?,?,?,?,1,1>
+    
+    P = P
+      = P + S_i + S_i
+      = <?,?,?,?,?,?,1,1> + S_i
+      = <_,_,_,_,_,_,1+i,_>
+      
+    P[7] = b7 = 1+i
+    
+    Done.
+    
+    Note: Again, we must have that PB[8]=1, otherwise "padding correct"
+    could as well imply padding type <?,?,?,?,?,?,?,0>.
+    
 
 + Question 8
 
 T = <r_1, .. ,r_5, i, b_7+2, b_8+2>
 
-END OF ASSIGNMENT 1
-1 NOV 2011
+Motivation:
+    The strategy is then that b6 = i + 2. The motivation
+    for this is exactly analogous for motivation for (Q. 7).
+    
+    So this time brief motivation:
+    
+    padding correct => P + T_i = <?,?,?,?,?,2,2,2>
+    
+    P = P
+      = P + T_i + T_i
+      = <?,?,?,?,?,2,2,2> + T_i
+      = <_,_,_,_,_,2+i,_,_>
+
+END OF REVISED ASSIGNMENT 1 (first resubmission)
+5 NOV 2011
