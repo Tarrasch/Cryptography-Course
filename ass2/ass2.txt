@@ -1,0 +1,185 @@
+Home assignment 2 in Cryptography TDA351
+Arash Rouhani
+rarash@student.chalmers.se
+901117-1213
+
+> ~sydow/cryptoAss2 9011171213
+    Home assignment 2, cryptography.
+    Data for 9011171213.
+    Your generator is g=13.
+    For task 2, the receiver's public key is X=9 and the message is m=16.
+    For task 3, your private key is x=7 and the ciphertext is (16,20)(9,13)(4,9).
+
+
+
++ Question 1A
+
+Using a haskell list comprehension (or spreadsheet or whatever) we get:
+
+i  | g^i
+-------
+0  | 1
+1  | 13
+2  | 8
+3  | 12
+4  | 18
+5  | 4
+6  | 6
+7  | 9
+8  | 2
+9  | 3
+10 | 16
+11 | 1
+12 | 13
+13 | ..
+
+Ok, we see that this pattern starts repeating already at i=11, so only i=0..10
+is interesting, as expected.
+
+
+
++ Question 1B (proof)
+
+Note: Of course everything here is modulo p.
+
+Given: q > 0
+       g `in` Z*_p
+       g^q = 1; 
+       S = { g^i | 0 <= i < q }
+
+Statement: Show that if a and b is in S, then a*b is in S.
+
+Proof: a = g^x; b = g^y (where x,y `in` Z)
+       We can obviously write it in that form, look at definition of S.
+
+       Note: Below we use "`mod`" as the arithmetic operator often used in
+       programming.
+
+       a * b = g^x * g^y
+             = g^(x+y)
+             = g^((x+y `mod` q) + k*q) (k `in` Z)
+             = g^(x+y `mod` q) * g^(k*q)
+             = g^(x+y `mod` q) * (g^q)^k
+             = g^(x+y `mod` q) * 1
+             = g^(x+y `mod` q)
+       
+       Note that 0 <= (x+y `mod` q) < q. Then by definition g^(x+y `mod` q)
+       is in S. We are done.
+
+
+
++ Question 2A
+
+g^x  = X
+13^x = 9
+
+Tables gives (i=7  <==> g^7=9). So x=7.
+
++ Question 2B
+
+k = X^y, we need an y, say from now on y=5. It safisfies 0<= y < 11.
+
+k = 9^5 = {calculator} = 8
+
+C = k * m = 8 * 16 = {calculator} = 13
+
+Since we are going to need Y in the 2C soon, we calc it here:
+
+Y = g^y = g^5 = {table} = 4
+
+
+
++ Question 2C
+
+Now, Bob have sent me (I pretend being Alice) Y and C. I knew x already. I
+also pretend to not know m, can I decrypt it anyway?
+
+First we must calculate k:
+
+k = X^y (we have X but not y :( )
+  = (g^x)^y 
+  = (g^y)^x
+  = Y^x (both known :) )
+  = 4^7 
+  = {calculator} = 8
+
+Since C = k * m  ==>  m = C/k = 13/8  ==>  8*m = 13
+
+With congruence explicitly stated we have  8*m = 13 mod 23.
+That equation is equivelent to 8*m + 23*n = 13 (no modulo, n `in` Z)
+
+If we solve for simple case with RHS = 1, then obviosly m'=3, n'=-1.
+Therefor
+    m = 13*3
+      = 16
+
+This is what we expected. Hooray! :)
+
+
+
++ Question 3A
+
+x = 7 (coincidentally this became the same as in task 2)
+
+X = g^x = {table} = 9
+
+X is the public key.
+
+
+
++ Question 3B
+
+We assume pattern matching on (Y, C) on the data (16,20)(9,13)(4,9).
+
+(Y = 16, C = 20)
+
+    k = Y^x = 16^7 = {calculator} = 18
+
+    m = C/k = 20/18 = 10/9
+
+    m*9 = 10 mod 23
+
+    m*9 + n*23 = 10
+
+    ad-hoc:
+    23 - 2*9 = 5  ==> twice everything (RHS =10) ==> m = -4 = 19
+
+    letter 19 = "S"
+
+(Y = 9, C = 13)
+
+    k = ... = 4
+
+    m = ... = 13/4
+
+    m*4 + n*23 = 13
+
+    easyily we see:
+    m'=6 n'=-1  ==>  m = 78 = 9
+
+    letter 9 = "I"
+
+(Y = 4, C = 9)
+
+    k = ... = 8
+
+    m = 9/8
+
+    m*8 + n*23 = 9
+
+    again obviously:
+    m' = 3, n' = -1  ==> m = 3*9 = 27 = 4
+
+    letter 4 = "D"
+
+Ok, we got the short name "SID".
+
+Thank god I have played so much of "Sid Meier's Civilization" so that I knew
+immedietly that Sid is an English name. Finally all the invested gaming time
+yielded greater profit! :)
+
+
+
+END OF ASSIGNMENT 2
+11-NOV-2011
+
