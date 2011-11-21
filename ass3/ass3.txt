@@ -1,0 +1,64 @@
+Home assignment 3 in Cryptography TDA351
+Arash Rouhani
+rarash@student.chalmers.se
+901117-1213
+
+
++ Question 1
+
+me = 901117-1213
+d  = 3
+n  = 10+d = 13
+
+G  = 13P = (9, 11)
+2G = 26P = (0, 21)
+3G = 39P
+   = 29P + 10P
+   = inf + (8, 15)
+   = {inf is identity to +}
+   = (8, 15)
+
+How I accomplished this visually:
+
+The start point P=1P is labeled on the "graph",
+I marked the point adjacent to 1P with 2P. And so on.
+I noted that the last point (mirror of P) is 28P,
+as described in the notes 28P+P = 29P = inf.
+
+
+
++ Question 2
+
+I choose to do this in haskell.
+
+instance Num ECCPoint where ...
+
+-- semantics of calc:
+--   calc n P = n*P
+calc :: Integer -> ECCPoint -> ECCPoint
+calc 0 _          = inf :: ECCPoint
+calc n p | even n = q+q
+         | odd  n = q+q+p
+  where
+    q = calc (n `div` 2) p
+
+
+
++ Question 3
+
+These are the instructions for verifying with ECDSA:
+
+s' = inverse(s)      `mod` q
+a  = h*s'            `mod` q
+b  = r*s'            `mod` q
+P  = a*G + b*X
+   = (x1, y1)
+v  = x1              `mod` q
+
+accept if v==r
+
+
+
+END OF ASSIGNMENT 3
+21-NOV-2011
+
