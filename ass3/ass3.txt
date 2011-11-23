@@ -57,6 +57,21 @@ v  = x1              `mod` q
 
 accept if v==r
 
+A proof/motivation for this can be retrived by expanding v,
+so if v turns out to be r it means that the verification
+will be correct when signature (r, s) is yielded by h.
+
+v = x1
+  = aG + bX       (x-part  ...
+  = hs'G + rs'X
+  = s'(hG + rX)
+  = s'G(h+rx)
+  = kG
+  = K              ... x-part )
+  = r mod q
+
+This is what we wanted and this is the end of the motivation.
+
 
 
 END OF ASSIGNMENT 3
