@@ -1,0 +1,91 @@
+Home assignment 4 in Cryptography TDA351
+Arash Rouhani
+rarash@student.chalmers.se
+901117-1213
+
+
++ Question 1a
+
+So we have eaves dropped on A and B and particularly noticed
+B's response to A, we call B's response M' = M_eA.
+
+Now we want to find M, so we contact A in a normal polite manner.
+According to the protocol this will happen when we send M'.
+
+1. C -> A:  {C, M'}_eB
+2. A -> C:  M'_dA
+
+The given reply turns out to be:
+
+M'_dA = {M}_eA_dA
+      = M
+
+We now have M, as we wanted
+
++ Question 1b
+
+This time we have eavesdropped on A's initial
+sent message M'' = {A, M_eB}_eB
+
+Now we start our attack which will consist of two communications
+with B.
+
+first:
+        1. C -> B: {C, M''}_eB
+        2. B -> C: {A, M_eB}_eC
+
+        The replied value can be shown to be what
+        I stated by dewrapping _eB from  M''
+        and then append _eC instead. As the protocol specifies.
+
+second:
+        From previous conversation we got {A, M_eB}_eC which
+        gives us M_eB.
+
+        Great, now we know M' = M_eB, so we can just
+        continue in the same fashion as in 1a.
+        
+        1. C -> B: {C, M'}_eB
+        2. B -> C: M'_dB
+
+        We can just as in 1a get M from the M'_dB
+
++ Question 2
+
+Our goal is to impersonate A and communicate with B succesfully
+so that he actually believes we are A.
+
+Lets begin the attack
+
+1. C -> B: {A, n_c}_eB     -- pretending to be A
+2. B -> C: {n_c, n_b}_eA
+    
+    Ok, lets wait with 3. and instead initiate contact with A.
+    This time however we pretend to be "n_c".
+    
+    What? Hold the phone! n_c is not a person! But we can choose
+    n_c to be C, remember the nonce of C is chosen by C,
+    and we choose it to be C! It will become clear why we do this.
+
+    1. C -> A: {n_c, n_b}_eA     -- (the response of B)
+    2. A -> C: {n_b, n_a}_e(n_c)
+
+    From {n_b, n_a}_e(n_c) we easily can get n_b.
+    Since n_c = C we can decrypt it and then we just
+    throw away n_a.
+
+    As for (3. C -> A) we just close that connection (dumping Alice :))
+
+Ok, what did we get out from our "indented" communication?
+Why n_b of course, now we just:
+
+3. C -> B: {n_b}_eB     -- Note that we still pretend to be A
+
+As B observed a reply from A that he thought only A could give,
+B belives he is communicating with A but actually he is communicating
+with C. The attack was successful.
+
+
+
+END OF ASSIGNMENT 4
+1-DEC-2011
