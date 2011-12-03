@@ -32,14 +32,14 @@ with B.
 
 first:
         1. C -> B: {C, M''}_eB
-        2. B -> C: {A, M_eB}_eC
+        2. B -> C: {C, M_eB}_eC
 
         The replied value can be shown to be what
         I stated by dewrapping _eB from  M''
         and then append _eC instead. As the protocol specifies.
 
 second:
-        From previous conversation we got {A, M_eB}_eC which
+        From previous conversation we got {C, M_eB}_eC which
         gives us M_eB.
 
         Great, now we know M' = M_eB, so we can just
