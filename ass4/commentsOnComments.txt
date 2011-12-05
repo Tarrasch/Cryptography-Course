@@ -1,0 +1,40 @@
+Hello Bart,
+
+First of all, thanks for a very quick grading!
+
+I Corrected my Q1, but as for Q2, I think your feedback
+is not enough.
+
+As for your feedback on Q2:
+
+It's the first assumption in this course that the
+adversary can intercept and block any message,
+so of course if B sends to A we can choose to catch
+the message ourselves (we are C).
+
+Second, if I define n_C = C, you can say that it is
+a wrong/impossible definition, but you can't grade
+it as if I never made that definition! I refer to your comment
+
+"No, n_c is not C! and you do not have the decryption key of n_c, d(n_c)
+either."
+
+The reason (I should have written it explicitly in my assignment)
+I assumed n_c = C is a valid definition is: n_c is a nonce
+which is a number, most representations of numbers has a defined
+value for all bitstrings. That means the bitstring representation
+for `person C` also has a meaning when representing a number.
+That is my motivation why the definition n_c = C is possible.
+
+Given all this, I would like to hear what more makes the attack
+I presented incomplete. I don't really see any flaws with it now.
+
+Now reading the hint, I see a completely different and less
+powerful attack is expected.
+(if you have invented something better than the
+best known you know you've done wrong :))
+I wrote the "intended" solution now aswell.
+
+Best regards,
+
+Arash
