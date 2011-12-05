@@ -12,13 +12,8 @@ B's response to A, we call B's response M' = M_eA.
 Now we want to find M, so we contact A in a normal polite manner.
 According to the protocol this will happen when we send M'.
 
-1. C -> A:  {C, M'}_eB
-2. A -> C:  M'_dA
-
-The given reply turns out to be:
-
-M'_dA = {M}_eA_dA
-      = M
+1. C -> A:  {C, M'}_eA
+2. A -> C:  M_eC
 
 We now have M, as we wanted
 
@@ -32,23 +27,20 @@ with B.
 
 first:
         1. C -> B: {C, M''}_eB
-        2. B -> C: {C, M_eB}_eC
+        2. B -> C: {A, M_eB}_eC
 
         The replied value can be shown to be what
-        I stated by dewrapping _eB from  M''
-        and then append _eC instead. As the protocol specifies.
+        I stated by dewrapping _eB from  M''.
 
 second:
-        From previous conversation we got {C, M_eB}_eC which
+        From previous conversation we got {A, M_eB}_eC which
         gives us M_eB.
 
         Great, now we know M' = M_eB, so we can just
         continue in the same fashion as in 1a.
         
         1. C -> B: {C, M'}_eB
-        2. B -> C: M'_dB
-
-        We can just as in 1a get M from the M'_dB
+        2. B -> C: M'_eC
 
 + Question 2
 
