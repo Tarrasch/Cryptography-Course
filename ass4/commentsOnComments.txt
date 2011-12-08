@@ -24,7 +24,8 @@ I assumed n_c = C is a valid definition is: n_c is a nonce
 which is a number, most representations of numbers has a defined
 value for all bitstrings. That means the bitstring representation
 for `person C` also has a meaning when representing a number.
-That is my motivation why the definition n_c = C is possible.
+That is my motivation why the definition n_c = C is not unlikely
+to be possible.
 
 Given all this, I would like to hear what more makes the attack
 I presented incomplete. I don't really see any flaws with it now.
@@ -33,8 +34,13 @@ Now reading the hint, I see a completely different and less
 powerful attack is expected.
 (if you have invented something better than the
 best known you know you've done wrong :))
-I wrote the "intended" solution now aswell.
+
+Btw, I heard my colleague got "Accepted" from Luciano with the
+same solution I had (we worked on Q2 together). But of course
+I haven't seen his submission, maybe it was written completely
+differently. So do you think I should resubmit with the intended
+solution or is this different solution also accetable?
 
 Best regards,
 
-Arash
+Arash Rouhani
